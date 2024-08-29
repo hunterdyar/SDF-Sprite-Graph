@@ -7,12 +7,12 @@ using UnityEngine.UIElements;
 
 namespace Zoompy.Generator.Editor.SystemGraph
 {
-	public class SystemGraphEditor : EditorWindow
+	public class SdfSpriteGraphEditor : EditorWindow
 	{
 		private SDFSprite _currentComponentContainer;
-		private SystemGraphView _graphView;
+		private SdfSpriteGraphView _graphView;
 
-		public SystemGraphSaveLoad saveLoad;
+		public SdfSpriteGraphSaveLoad saveLoad;
 		//toolbar
 		private Toolbar _toolbar;
 		private Label _systemNameLabel;
@@ -23,7 +23,7 @@ namespace Zoompy.Generator.Editor.SystemGraph
 			UnityEngine.Object item = EditorUtility.InstanceIDToObject(instanceID);
 			if (item is SDFSprite cg)
 			{
-				SystemGraphEditor window = (SystemGraphEditor)GetWindow(typeof(SystemGraphEditor));
+				SdfSpriteGraphEditor window = (SdfSpriteGraphEditor)GetWindow(typeof(SdfSpriteGraphEditor));
 				window.titleContent = new GUIContent("Component System Editor");
 				window._currentComponentContainer = item as SDFSprite;
 				window.minSize = new Vector2(150, 150);
@@ -73,7 +73,7 @@ namespace Zoompy.Generator.Editor.SystemGraph
 			{
 				_systemNameLabel.text = _currentComponentContainer.name;
 				ConstructGraphView();
-				saveLoad = new SystemGraphSaveLoad(this, _graphView);
+				saveLoad = new SdfSpriteGraphSaveLoad(this, _graphView);
 			}
 		}
 		void Save()
@@ -90,7 +90,7 @@ namespace Zoompy.Generator.Editor.SystemGraph
 			{
 				rootVisualElement.Remove(_graphView);
 			}
-			_graphView = new SystemGraphView(_currentComponentContainer,this);
+			_graphView = new SdfSpriteGraphView(_currentComponentContainer,this);
 			rootVisualElement.Add(_graphView);
 			_graphView.StretchToParentSize();
 			_graphView.style.width = new StyleLength(Length.Percent(100));

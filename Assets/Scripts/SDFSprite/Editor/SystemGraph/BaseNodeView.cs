@@ -10,10 +10,10 @@ namespace Zoompy.Generator.Editor.SystemGraph
         public int Index => _index;
         protected int _index = 0;
         public string Guid => guid;
-        protected string guid;
+        public string guid;
         
-        protected SystemGraphView _graphView;
-        protected SystemGraphEditor _graphEditor;
+        protected SdfSpriteGraphView _graphView;
+        protected SdfSpriteGraphEditor _graphEditor;
         
         protected Vector2 defaultNodeSize = new Vector2(200, 250);
         

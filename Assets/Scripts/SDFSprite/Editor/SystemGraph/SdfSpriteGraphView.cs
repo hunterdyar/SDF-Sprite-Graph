@@ -10,9 +10,9 @@ using UnityEngine.UIElements;
 
 namespace Zoompy.Generator.Editor.SystemGraph
 {
-	public class SystemGraphView : GraphView
+	public class SdfSpriteGraphView : GraphView
 	{
-		private SystemGraphEditor _editor;
+		private SdfSpriteGraphEditor _editor;
 		private string styleName = "";
 
 		private NodeSearchWindow _searchWindow;
@@ -21,7 +21,7 @@ namespace Zoompy.Generator.Editor.SystemGraph
         public SDFDescription Description;
         
         //private SystemOutputNodeView _outputsNodeView;
-        public SystemGraphView(SDFSprite parent, SystemGraphEditor graphEditorWindow)
+        public SdfSpriteGraphView(SDFSprite parent, SdfSpriteGraphEditor graphEditorWindow)
         {
 	        _editor = graphEditorWindow;
 	        if (parent == null)
@@ -135,25 +135,25 @@ namespace Zoompy.Generator.Editor.SystemGraph
 	        return r;
         }
 
-        public SystemNodeView CreateNewSystemNodeView(Vector2 pos, SDFSprite system)
+        public SdfNodeView CreateNewSystemNodeView(Vector2 pos, SDFNode node)
         {
 	        //create the data.
-	        var systemNode = new SDFNode();
 	        //systemNode.System = system;
-	        systemNode.guid = Guid.NewGuid().ToString();
+	        node.guid = Guid.NewGuid().ToString();
 
 	        //for size
-	        systemNode.editorPosition = new Rect(pos, new Vector2(300, 250));
+	        node.editorPosition = new Rect(pos, new Vector2(300, 250));
+
+	        SdfNodeView nv = new SdfNodeView(node, _systemParent);
 	        
-	        var node = new SystemNodeView(systemNode, SDFSprite);
 	       // This happens when we save.
 	       // ComponentGenerator.InnerSystem.Nodes.Add(systemNode);
-	        return node;
+	        return nv;
         }
 
-        public SystemNodeView RecreateSystemNodeView(SDFNode node)
+        public SdfNodeView RecreateSystemNodeView(SDFNode node)
         {
-	        var n = new SystemNodeView(node, SDFSprite);
+	        var n = new SdfNodeView(node, SDFSprite);
 	        return n;
         }  
 	}

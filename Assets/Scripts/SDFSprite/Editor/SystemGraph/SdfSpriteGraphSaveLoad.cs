@@ -5,12 +5,12 @@ using UnityEditor.Rendering;
 
 namespace Zoompy.Generator.Editor.SystemGraph
 {
-	public class SystemGraphSaveLoad
+	public class SdfSpriteGraphSaveLoad
 	{
-		private SystemGraphEditor _editor;
-		private SystemGraphView _graphView;
+		private SdfSpriteGraphEditor _editor;
+		private SdfSpriteGraphView _graphView;
 
-		public SystemGraphSaveLoad(SystemGraphEditor editor, SystemGraphView graphView)
+		public SdfSpriteGraphSaveLoad(SdfSpriteGraphEditor editor, SdfSpriteGraphView graphView)
 		{
 			_editor = editor;
 			_graphView = graphView;
@@ -40,12 +40,12 @@ namespace Zoompy.Generator.Editor.SystemGraph
 		private void SaveEdges(SDFSprite gen)
 		{
 			gen.Description.Connections = _graphView.edges.Where(e => e.input.node != null && e.output.node != null)
-				.Select(e => { return GraphEdgeToSystemEdge(e); }).ToArray();
+				.Select(GraphEdgeToSystemEdge).ToArray();
 		}
 		private void SaveNodes(SDFSprite gen)
 		{
-			gen.Description.Nodes = _graphView.nodes.Select(x => x as SystemNodeView).Where(x => x != null)
-				.Select(n => n.SystemNode).ToArray();
+			gen.Description.Nodes = _graphView.nodes.Select(x => x as SdfNodeView).Where(x => x != null)
+				.Select(n => n.SDFNode).ToArray();
 		}
 
 		private Connection GraphEdgeToSystemEdge(Edge edge)

@@ -4,12 +4,16 @@ using UnityEngine;
 
 namespace Zoompy.Generator.Editor.SystemGraph
 {
-	public class SystemNodeView : BaseNodeView
+	/// <summary>
+	/// Editor, Visual representation of each Node.
+	/// We are using one class for all of our nodes. This is sloppy and I don't like it.
+	/// </summary>
+	public class SdfNodeView : BaseNodeView
 	{
-		public SDFNode SystemNode => _sdfNode;
-		private SDFNode _sdfNode;
+		public SDFNode SDFNode => _sdfNode;
+		private readonly SDFNode _sdfNode;
 
-		public SystemNodeView(SDFNode node, SDFSprite parent) : base(parent)
+		public SdfNodeView(SDFNode node, SDFSprite parent) : base(parent)
 		{
 			_sdfNode = node;
 			Init();
@@ -18,7 +22,7 @@ namespace Zoompy.Generator.Editor.SystemGraph
 		private void Init()
 		{
 			this.capabilities = this.capabilities & ~Capabilities.Collapsible;
-			
+			//
 			this.title = _sdfNode.name;
 			this.name = _sdfNode.name;
 			this.SetID(_sdfNode.guid);

@@ -4,7 +4,7 @@ using UnityEditor.Experimental.GraphView;
 namespace Zoompy
 {
 	[System.Serializable]
-	public class OutputNode : Node
+	public class OutputNode : SDFNode
 	{
 		public Color BackgroundColor;
 		public Color ForegroundColor;
