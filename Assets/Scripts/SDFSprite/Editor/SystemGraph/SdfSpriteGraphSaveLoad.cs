@@ -44,7 +44,7 @@ namespace Zoompy.Generator.Editor.SystemGraph
 		}
 		private void SaveNodes(SDFSprite gen)
 		{
-			gen.Description.Nodes = _graphView.nodes.Select(x => x as SdfNodeView).Where(x => x != null)
+			gen.Description.Nodes = _graphView.nodes.Select(x => x as BaseNodeView).Where(x => x != null)
 				.Select(n => n.SDFNode).ToArray();
 		}
 

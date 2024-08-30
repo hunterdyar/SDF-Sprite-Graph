@@ -7,7 +7,7 @@ namespace Zoompy
 	public class SDFNode
 	{
 		public string guid;
-		public string name;
+		public virtual string Name => "Node";
 		public Rect editorPosition;
 		public Connection[] inputs;
 		public Connection[] outputs;

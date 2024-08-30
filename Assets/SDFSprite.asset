@@ -15,6 +15,15 @@ MonoBehaviour:
   Description:
     SDFSprite: {fileID: 0}
     OutputNode:
+      guid: 
+      editorPosition:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 0
+        height: 0
+      inputs: []
+      outputs: []
       Width: 15
       Height: 15
       Input:
@@ -22,5 +31,23 @@ MonoBehaviour:
         FromIndex: 0
         ToNode: 
         ToIndex: 0
-    Nodes: []
+    Nodes:
+    - guid: 6100a15a-4112-4546-9d48-ed5671350f71
+      editorPosition:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 47
+        height: 53
+      inputs: []
+      outputs: []
+    - guid: e5ea244f-ecbc-4d3a-b91a-86d8911fc25c
+      editorPosition:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 47
+        height: 44
+      inputs: []
+      outputs: []
     Connections: []

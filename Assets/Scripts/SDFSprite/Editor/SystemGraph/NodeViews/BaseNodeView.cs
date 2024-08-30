@@ -19,8 +19,11 @@ namespace Zoompy.Generator.Editor.SystemGraph
         
 		public Action<BaseNodeView> OnNodeSelected;
         protected SDFSprite _parent;
-        public BaseNodeView(SDFSprite parent)
+        public SDFNode SDFNode => _sdfNode;
+        private readonly SDFNode _sdfNode;
+        public BaseNodeView(SDFSprite parent, SDFNode node)
         {
+            _sdfNode = node;
             _parent = parent;
             // style.left = node.position.x;
             // style.top = node.position.y;
@@ -28,6 +31,18 @@ namespace Zoompy.Generator.Editor.SystemGraph
             this.viewDataKey = guid;
         }
 
+        private void Init()
+        {
+            this.capabilities = this.capabilities & ~Capabilities.Collapsible;
+            this.title = _sdfNode.Name;
+            this.name = _sdfNode.Name;
+            this.SetID(_sdfNode.guid);
+            SetPosition(_sdfNode.editorPosition);
+            RefreshExpandedState();
+            GenerateSelf();
+            RefreshPorts();
+        }
+        
         public Port AddPort(string name, Direction nodeDir, Port.Capacity capacity = Port.Capacity.Single)
         {
              var port = InstantiatePort(Orientation.Horizontal, nodeDir, capacity, typeof(byte));
@@ -54,13 +69,19 @@ namespace Zoompy.Generator.Editor.SystemGraph
 
         public virtual void PreSaveDataPopulate()
         {
-            
+            var pos = GetPosition();
+            _sdfNode.editorPosition = pos;
         }
 
         public override void OnSelected()
         {
             base.OnSelected();
             OnNodeSelected?.Invoke(this);
+        }
+
+        protected void GenerateSelf()
+        {
+            
         }
 
         public void SetID(string g)

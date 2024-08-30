@@ -135,7 +135,7 @@ namespace Zoompy.Generator.Editor.SystemGraph
 	        return r;
         }
 
-        public SdfNodeView CreateNewSystemNodeView(Vector2 pos, SDFNode node)
+        public BaseNodeView CreateNewSystemNodeView(Vector2 pos, SDFNode node)
         {
 	        //create the data.
 	        //systemNode.System = system;
@@ -144,16 +144,16 @@ namespace Zoompy.Generator.Editor.SystemGraph
 	        //for size
 	        node.editorPosition = new Rect(pos, new Vector2(300, 250));
 
-	        SdfNodeView nv = new SdfNodeView(node, _systemParent);
+	        BaseNodeView nv = new BaseNodeView(_systemParent,node);
 	        
 	       // This happens when we save.
 	       // ComponentGenerator.InnerSystem.Nodes.Add(systemNode);
 	        return nv;
         }
 
-        public SdfNodeView RecreateSystemNodeView(SDFNode node)
+        public BaseNodeView RecreateSystemNodeView(SDFNode node)
         {
-	        var n = new SdfNodeView(node, SDFSprite);
+	        var n = new BaseNodeView(SDFSprite, node);
 	        return n;
         }  
 	}
