@@ -18,14 +18,14 @@ MonoBehaviour:
       guid: output
       editorPosition:
         serializedVersion: 2
-        x: 385
-        y: 144
-        width: 86
-        height: 76
+        x: 640
+        y: 102
+        width: 273
+        height: 322
       inputs: []
       outputs: []
-      Width: 15
-      Height: 15
+      Width: 35
+      Height: 16
       Input:
         FromNode: 
         FromIndex: 0

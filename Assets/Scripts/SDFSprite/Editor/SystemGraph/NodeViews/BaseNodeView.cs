@@ -18,13 +18,13 @@ namespace Zoompy.Generator.Editor.SystemGraph
         protected Vector2 defaultNodeSize = new Vector2(200, 250);
         
 		public Action<BaseNodeView> OnNodeSelected;
-        protected SDFSprite _parent;
+        protected SDFSprite _SDFSprite;
         public SDFNode SDFNode => _sdfNode;
         private readonly SDFNode _sdfNode;
-        public BaseNodeView(SDFSprite parent, SDFNode node)
+        public BaseNodeView(SDFSprite sdfSprite, SDFNode node)
         {
             _sdfNode = node;
-            _parent = parent;
+            _SDFSprite = sdfSprite;
             guid = GUID.Generate().ToString();
             this.viewDataKey = guid;
             Init();
