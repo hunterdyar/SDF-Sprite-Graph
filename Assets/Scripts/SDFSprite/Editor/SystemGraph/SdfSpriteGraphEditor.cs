@@ -68,7 +68,6 @@ namespace Zoompy.Generator.Editor.SystemGraph
 				_systemNameLabel = new Label();
 			}
 
-			//
 			if (_currentComponentContainer != null)
 			{
 				_systemNameLabel.text = _currentComponentContainer.name;
@@ -90,6 +89,7 @@ namespace Zoompy.Generator.Editor.SystemGraph
 			{
 				rootVisualElement.Remove(_graphView);
 			}
+			
 			_graphView = new SdfSpriteGraphView(_currentComponentContainer,this);
 			rootVisualElement.Add(_graphView);
 			_graphView.StretchToParentSize();

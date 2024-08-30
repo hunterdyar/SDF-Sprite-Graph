@@ -68,17 +68,22 @@ namespace Zoompy.Generator.Editor.SystemGraph
 	        {
 		        return;
 	        }
+
+	        //output node, there always is one.
+	        _systemParent.Description.OutputNode.guid = "output";
+	        var outputNode = new OutputNodeView(_systemParent, _systemParent.Description.OutputNode);
+	        AddElement(outputNode);
 	        
+	        //
 	        foreach (var sNode in _systemParent.Description.Nodes)
 	        {
 		        var node = RecreateSystemNodeView(sNode);
 		        AddElement(node);
 	        }
 
-	        // FromNode = input.Guid,
-	        // ToNode = output.Guid,
-	        // FromIndex = edge.input.parent.IndexOf(edge.input),
-	        // ToIndex = edge.output.parent.IndexOf(edge.output)
+	      
+	        
+	        //all connections
 	        foreach (var edge in _systemParent.Description.Connections)
 	        {
 		        var from = GetNode(edge.FromNode);
@@ -153,6 +158,12 @@ namespace Zoompy.Generator.Editor.SystemGraph
 
         public BaseNodeView RecreateSystemNodeView(SDFNode node)
         {
+	        if (node is OutputNode)
+	        {
+		        return null;
+	        }
+	        //if node.type = ...
+	        //return appropriate type.
 	        var n = new BaseNodeView(SDFSprite, node);
 	        return n;
         }  

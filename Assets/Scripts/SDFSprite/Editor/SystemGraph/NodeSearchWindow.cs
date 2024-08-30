@@ -27,29 +27,11 @@ public class NodeSearchWindow : ScriptableObject, ISearchWindowProvider
 			new SearchTreeGroupEntry(new GUIContent("Nodes"), 0),
 		};
 		
-		tree.Add(new SearchTreeEntry(new GUIContent("Output Node"))
+		tree.Add(new SearchTreeEntry(new GUIContent("Test Node"))
 		{
 			level = 1,
-			userData = new OutputNode(),
+			userData = new SDFNode(),
 		});
-
-		// var objects = AssetDatabase.FindAssets("t:SdfNode");
-		// foreach (string o in objects)
-		// {
-		// 	var path = AssetDatabase.GUIDToAssetPath(o);
-		// 	var cg = AssetDatabase.LoadAssetAtPath<Zoompy.SDFSprite>(path);
-		// 	if (cg != null)
-		// 	{
-		// 		if (cg == _graphView.SDFSprite)
-		// 		{
-		// 			//prevent infinite nesting.
-		// 			//one could still copy/paste into the nodes. please don't?
-		// 			continue;
-		// 		}
-		// 		var t = AddNodeSearch(cg.name, 1, cg);
-		// 		tree.Add(t);
-		// 	}
-		// }
 
 		return tree;
 	}
@@ -64,12 +46,15 @@ public class NodeSearchWindow : ScriptableObject, ISearchWindowProvider
 		return CheckForNodeType(SearchTreeEntry, graphMousePos);
 	}
 
+	//todo: better name
 	private bool CheckForNodeType(SearchTreeEntry searchTreeEntry, Vector2 pos)
 	{
 		switch (searchTreeEntry.userData)
 		{
 			//todo: I ... think this is always true right now at least.
 			//but in the future we could have groups or utility stuff.
+			case OutputNode:
+				return false;
 			case SDFNode sdfNode:
 				var node = _graphView.CreateNewSystemNodeView(pos, sdfNode);
 				_graphView.AddElement(node);

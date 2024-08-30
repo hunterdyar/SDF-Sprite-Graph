@@ -25,10 +25,9 @@ namespace Zoompy.Generator.Editor.SystemGraph
         {
             _sdfNode = node;
             _parent = parent;
-            // style.left = node.position.x;
-            // style.top = node.position.y;
             guid = GUID.Generate().ToString();
             this.viewDataKey = guid;
+            Init();
         }
 
         private void Init()
@@ -79,7 +78,7 @@ namespace Zoompy.Generator.Editor.SystemGraph
             OnNodeSelected?.Invoke(this);
         }
 
-        protected void GenerateSelf()
+        protected virtual void GenerateSelf()
         {
             
         }

@@ -44,7 +44,7 @@ namespace Zoompy.Generator.Editor.SystemGraph
 		}
 		private void SaveNodes(SDFSprite gen)
 		{
-			gen.Description.Nodes = _graphView.nodes.Select(x => x as BaseNodeView).Where(x => x != null)
+			gen.Description.Nodes = _graphView.nodes.OfType<BaseNodeView>().Where(x => x is not OutputNodeView)
 				.Select(n => n.SDFNode).ToArray();
 		}
 
@@ -58,7 +58,6 @@ namespace Zoompy.Generator.Editor.SystemGraph
 					{
 						ToNode = input.Guid,
 						ToIndex = edge.input.parent.IndexOf(edge.input),
-
 						FromNode = output.Guid,
 						FromIndex = edge.output.parent.IndexOf(edge.output)
 					};
