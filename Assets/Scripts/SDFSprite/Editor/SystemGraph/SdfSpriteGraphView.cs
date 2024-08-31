@@ -148,10 +148,21 @@ namespace Zoompy.Generator.Editor.SystemGraph
 
 	        //for size
 	        node.editorPosition = new Rect(pos, new Vector2(300, 250));
-
-	        BaseNodeView nv = new BaseNodeView(_systemParent,node);
 	        
-	       // This happens when we save.
+	        //need the node in the array in order to draw it's property, because we are using index.
+			_editor.Save();
+	        BaseNodeView nv;
+	        if (node is Circle)
+	        {
+		        //get index?
+		        nv = new CircleNodeView(_systemParent,node);
+	        }
+	        else
+	        { 
+		        nv = new BaseNodeView(_systemParent, node);
+	        }
+
+	        // This happens when we save.
 	       // ComponentGenerator.InnerSystem.Nodes.Add(systemNode);
 	        return nv;
         }
@@ -161,6 +172,11 @@ namespace Zoompy.Generator.Editor.SystemGraph
 	        if (node is OutputNode)
 	        {
 		        return null;
+	        }
+
+	        if (node is Circle)
+	        {
+		        return new CircleNodeView(_systemParent, node);
 	        }
 	        //if node.type = ...
 	        //return appropriate type.

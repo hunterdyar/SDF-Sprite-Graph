@@ -27,11 +27,12 @@ public class NodeSearchWindow : ScriptableObject, ISearchWindowProvider
 			new SearchTreeGroupEntry(new GUIContent("Nodes"), 0),
 		};
 		
-		tree.Add(new SearchTreeEntry(new GUIContent("Test Node"))
+		tree.Add(new SearchTreeEntry(new GUIContent("Circle"))
 		{
 			level = 1,
-			userData = new SDFNode(),
+			userData = new Circle(),
 		});
+		
 
 		return tree;
 	}
@@ -55,6 +56,10 @@ public class NodeSearchWindow : ScriptableObject, ISearchWindowProvider
 			//but in the future we could have groups or utility stuff.
 			case OutputNode:
 				return false;
+			// case Primitive primitive:
+			// 	var prim = _graphView.CreateNewSystemNodeView(pos, primitive);
+			// 	_graphView.AddElement(prim);
+			// 	return true;
 			case SDFNode sdfNode:
 				var node = _graphView.CreateNewSystemNodeView(pos, sdfNode);
 				_graphView.AddElement(node);

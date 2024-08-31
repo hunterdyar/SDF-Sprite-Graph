@@ -47,17 +47,34 @@ namespace Zoompy.Generator.Editor.SystemGraph
 		private void GenerateToolbar()
 		{
 			_toolbar = new Toolbar();
+			//Save Button
 			Button saveBtn = new Button()
 			{
 				text = "Save",
 			};
 			saveBtn.clicked += () => { Save(); };
 			_toolbar.Add(saveBtn);
+
+			//Generate Button
+			Button genBtn = new Button()
+			{
+				text = "Apply",
+			};
+			genBtn.clicked += () =>
+			{
+				Save();
+				_currentComponentContainer.Generate();
+			};
+			_toolbar.Add(genBtn);
+			
+			//label
 			if (_systemNameLabel == null)
 			{
 				_systemNameLabel = new Label();
 			}
 			_toolbar.Add(_systemNameLabel);
+			
+			//
 			rootVisualElement.Add(_toolbar); 
 		}
 
@@ -75,7 +92,7 @@ namespace Zoompy.Generator.Editor.SystemGraph
 				saveLoad = new SdfSpriteGraphSaveLoad(this, _graphView);
 			}
 		}
-		void Save()
+		public void Save()
 		{
 			if (_currentComponentContainer != null)
 			{

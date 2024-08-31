@@ -22,13 +22,24 @@ namespace Zoompy.Generator.Editor.SystemGraph
 			{
 				sdfSerializedObject = new SerializedObject(_SDFSprite);
 			}
+
+			//Origin
+			var origin = sdfSerializedObject.FindProperty("Description.OutputNode.Origin");
+			var originField = new PropertyField(origin);
+			originField.Bind(origin.serializedObject);
+			mainContainer.Add(originField);
 			
+			//output width
 			var width = sdfSerializedObject.FindProperty("Description.OutputNode.Width");
 			var widthField = new PropertyField(width);
 			widthField.Bind(width.serializedObject);
 			mainContainer.Add(widthField);
-			
-			mainContainer.Add(new Label("test"));
+
+			//output height
+			var height = sdfSerializedObject.FindProperty("Description.OutputNode.Height");
+			var heightField = new PropertyField(height);
+			heightField.Bind(height.serializedObject);
+			mainContainer.Add(heightField);
 			
 			base.GenerateSelf();
 		}

@@ -9,8 +9,6 @@ namespace Zoompy
 		public string guid;
 		public virtual string Name => "Node";
 		public Rect editorPosition;
-		public Connection[] inputs;
-		public Connection[] outputs;
 	}
 }
 

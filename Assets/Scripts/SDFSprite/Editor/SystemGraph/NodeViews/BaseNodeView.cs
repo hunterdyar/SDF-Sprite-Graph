@@ -7,8 +7,6 @@ namespace Zoompy.Generator.Editor.SystemGraph
 {
 	public class BaseNodeView : UnityEditor.Experimental.GraphView.Node
     {
-        public int Index => _index;
-        protected int _index = 0;
         public string Guid => guid;
         public string guid;
         
@@ -20,7 +18,7 @@ namespace Zoompy.Generator.Editor.SystemGraph
 		public Action<BaseNodeView> OnNodeSelected;
         protected SDFSprite _SDFSprite;
         public SDFNode SDFNode => _sdfNode;
-        private readonly SDFNode _sdfNode;
+        protected readonly SDFNode _sdfNode;
         public BaseNodeView(SDFSprite sdfSprite, SDFNode node)
         {
             _sdfNode = node;
@@ -87,5 +85,10 @@ namespace Zoompy.Generator.Editor.SystemGraph
         {
             this.guid = g;
         }
-	}
+
+        public virtual void Apply()
+        {
+            
+        }
+    }
 }
