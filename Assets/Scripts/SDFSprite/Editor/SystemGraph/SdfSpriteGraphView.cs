@@ -75,6 +75,11 @@ namespace Zoompy.Generator.Editor.SystemGraph
 	        AddElement(outputNode);
 	        
 	        //
+	        if (_systemParent.Description == null)
+	        {
+		        _systemParent.Description = new SDFDescription();
+	        }
+	        
 	        foreach (var sNode in _systemParent.Description.Nodes)
 	        {
 		        var node = RecreateSystemNodeView(sNode);

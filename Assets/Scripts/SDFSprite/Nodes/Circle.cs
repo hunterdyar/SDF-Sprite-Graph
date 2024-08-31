@@ -5,8 +5,8 @@ namespace Zoompy
 	[System.Serializable]
 	public class Circle : SDFNode, IPrimitive
 	{
-		public SDFForm Shape;
-		public float Radius;
+		public SDFForm Shape = SDFForm.Circle;
+		public float Radius = 32;
 		
 		public float Calculate(int x, int y)
 		{

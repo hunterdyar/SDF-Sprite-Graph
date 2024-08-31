@@ -21,10 +21,10 @@ namespace Zoompy.Generator.Editor.SystemGraph
 		public static bool ShowWindow(int instanceID, int line)
 		{
 			UnityEngine.Object item = EditorUtility.InstanceIDToObject(instanceID);
-			if (item is SDFSprite cg)
+			if (item is SDFSprite sprite)
 			{
 				SdfSpriteGraphEditor window = (SdfSpriteGraphEditor)GetWindow(typeof(SdfSpriteGraphEditor));
-				window.titleContent = new GUIContent("Component System Editor");
+				window.titleContent = new GUIContent( $"SDF Sprite Editor ({item.name})");
 				window._currentComponentContainer = item as SDFSprite;
 				window.minSize = new Vector2(150, 150);
 				window.Load();

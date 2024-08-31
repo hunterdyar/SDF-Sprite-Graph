@@ -10,6 +10,8 @@ namespace Zoompy
    {
       //todo: child asset. How did we do it in daily golf gen?
       private Texture2D _spriteTexture;
+      private Sprite _sprite;
+      
       public SDFDescription Description = new SDFDescription();
       [SerializeField] private FilterMode _filterMode = FilterMode.Point;
 
@@ -42,12 +44,20 @@ namespace Zoompy
          {
 	         _spriteTexture = new Texture2D(Description.OutputNode.Width, Description.OutputNode.Height);
 	         _spriteTexture.filterMode = _filterMode;
-	         _spriteTexture.name = this.name + "_img";
-
+	         _spriteTexture.name = this.name + "_tex";
 #if UNITY_EDITOR
 	         AssetDatabase.AddObjectToAsset(_spriteTexture, AssetDatabase.GetAssetPath(this));
 	         AssetDatabase.SaveAssets();
 #endif
+         }
+
+         if (_sprite == null)
+         {
+	         _sprite = Sprite.Create(_spriteTexture, new Rect(0, 0, _spriteTexture.width, _spriteTexture.height),
+		         Vector2.zero);
+	         _sprite.name = this.name + "_sprite";
+	         AssetDatabase.AddObjectToAsset(_sprite, AssetDatabase.GetAssetPath(this));
+	         AssetDatabase.SaveAssets();
          }
 
          //if size changes
@@ -55,7 +65,12 @@ namespace Zoompy
                 _spriteTexture.height != Description.OutputNode.Height)
             {
                _spriteTexture.Reinitialize(Description.OutputNode.Width, Description.OutputNode.Height);
+               _sprite = Sprite.Create(_spriteTexture, new Rect(0, 0, _spriteTexture.width, _spriteTexture.height),
+	               Vector2.zero);
+               EditorUtility.SetDirty(_sprite);
                _spriteTexture.filterMode = _filterMode;
+               EditorUtility.SetDirty(_spriteTexture);
+
 #if UNITY_EDITOR
                AssetDatabase.SaveAssets();
 #endif  
@@ -64,6 +79,7 @@ namespace Zoompy
             
 #if UNITY_EDITOR
             EditorUtility.SetDirty(_spriteTexture);
+            EditorUtility.SetDirty(_sprite);
             AssetDatabase.SaveAssetIfDirty(AssetDatabase.GUIDFromAssetPath(AssetDatabase.GetAssetPath(_spriteTexture)));
 #endif
       }

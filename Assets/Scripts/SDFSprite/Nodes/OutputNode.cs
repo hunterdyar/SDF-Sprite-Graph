@@ -8,10 +8,10 @@ namespace Zoompy
 	public class OutputNode : SDFNode
 	{ 
 		public override string Name => "Output";
-		public Color BackgroundColor;
-		public Color ForegroundColor;
-		public int Width;
-		public int Height;
+		public Color BackgroundColor = new Color(0f,0f,0f,0f);
+		public Color ForegroundColor = Color.white;
+		public int Width = 64;
+		public int Height = 64;
 		public Zoompy.Origin Origin;
 
 		public (int x, int y) GetAppliedPosition(int x, int y)
