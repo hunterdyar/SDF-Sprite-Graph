@@ -527,7 +527,7 @@ MonoBehaviour:
       FromIndex: 0
       ToNode: e2e8faa8-bc79-4d55-8686-e60748a6cd26
       ToIndex: 0
-  _filterMode: 0
+  _filterMode: 1
   useThreads: 0
   references:
     version: 2

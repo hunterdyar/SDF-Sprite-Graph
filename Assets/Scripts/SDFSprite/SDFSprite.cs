@@ -99,7 +99,7 @@ namespace Zoompy
                 _spriteTexture.height != Description.OutputNode.Height)
             {
                _spriteTexture.Reinitialize(Description.OutputNode.Width, Description.OutputNode.Height);
-               DestroyImmediate(_sprite);
+//               DestroyImmediate(_sprite);
                _sprite = Sprite.Create(_spriteTexture, new Rect(0, 0, _spriteTexture.width, _spriteTexture.height),
 	               Vector2.zero);
                EditorUtility.SetDirty(_sprite);

@@ -1,4 +1,5 @@
 ﻿using System;
+using NUnit.Framework.Interfaces;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -101,9 +102,13 @@ namespace Zoompy
             return node switch
             {
                 Circle => new CircleNodeView(systemParent, node),
+                Box => new BoxNodeView(systemParent,node),
                 Translate => new TranslateNodeView(systemParent, node),
                 SimpleMerge => new SimpleMergeNodeView(systemParent,node),
                 Lerp => new LerpNodeView(systemParent,node),
+                Border => new BorderNodeView(systemParent,node),
+                Round => new RoundNodeView(systemParent,node),
+                
                 _ => new BaseNodeView(systemParent, node)
             };
         }

@@ -27,36 +27,54 @@ public class NodeSearchWindow : ScriptableObject, ISearchWindowProvider
 		};
 		
 		//todo: generate these at least?
+		tree.Add(new SearchTreeGroupEntry(new GUIContent("Primitives"),1));
 		tree.Add(new SearchTreeEntry(new GUIContent("Circle"))
 		{
-			level = 1,
+			level = 2,
 			userData = new Circle(),
 		});
-		
-		tree.Add(new SearchTreeEntry(new GUIContent("Translate"))
+		tree.Add(new SearchTreeEntry(new GUIContent("Box"))
 		{
-			level = 1,
-			userData = new Zoompy.Translate(),
+			level = 2,
+			userData = new Zoompy.Box(),
 		});
 		
+		tree.Add(new SearchTreeGroupEntry(new GUIContent("Transformations"), 1));
+		tree.Add(new SearchTreeEntry(new GUIContent("Translate"))
+		{
+			level = 2,
+			userData = new Zoompy.Translate(),
+		});
+		tree.Add(new SearchTreeEntry(new GUIContent("Border (Outline)"))
+		{
+			level = 2,
+			userData = new Zoompy.Border(),
+		});
+		tree.Add(new SearchTreeEntry(new GUIContent("Round"))
+		{
+			level = 2,
+			userData = new Zoompy.Round(),
+		});
+
+		tree.Add(new SearchTreeGroupEntry(new GUIContent("Combinations"), 1));
 		tree.Add(new SearchTreeEntry(new GUIContent("Union"))
 		{
-			level = 1,
+			level = 2,
 			userData = new Zoompy.SimpleMerge(){merge = Merge.Union},
 		});
 		tree.Add(new SearchTreeEntry(new GUIContent("Intersection"))
 		{
-			level = 1,
+			level = 2,
 			userData = new Zoompy.SimpleMerge() { merge = Merge.Intersection },
 		});
 		tree.Add(new SearchTreeEntry(new GUIContent("Subtraction"))
 		{
-			level = 1,
+			level = 2,
 			userData = new Zoompy.SimpleMerge() { merge = Merge.Subtraction },
 		});
 		tree.Add(new SearchTreeEntry(new GUIContent("Lerp"))
 		{
-			level = 1,
+			level = 2,
 			userData = new Zoompy.Lerp() {  },
 		});
 		
