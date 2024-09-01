@@ -16,7 +16,7 @@ namespace Zoompy
 
 		protected override void GenerateSelf()
 		{
-			AddPort("Input", Direction.Input, Port.Capacity.Single);
+			AddPort("Input", Direction.Input, Port.Capacity.Multi);
 
 			if (sdfSerializedObject == null)
 			{

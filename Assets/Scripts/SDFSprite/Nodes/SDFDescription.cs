@@ -38,6 +38,11 @@ namespace Zoompy
 			return Nodes.FirstOrDefault(x => x.guid==guid);
 		}
 
+		public void ClearCache()
+		{
+			_nodes.Clear();
+		}
+
 		public float GetValueIntoNode(int x, int y, SDFNode node)
 		{
 			//get the value
@@ -51,6 +56,8 @@ namespace Zoompy
 			{
 				f = Mathf.Min(from[i].Calculate(x, y, ref d), f);
 			}
+			
+			
 
 			return f;
 		}

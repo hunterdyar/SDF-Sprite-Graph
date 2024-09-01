@@ -21,7 +21,7 @@ namespace Zoompy
       {
 	      //create empty if needed
 	      SaveTexture2D();
-
+	      Description.ClearCache();
 	      for (int x = 0; x < Description.OutputNode.Width; x++)
 	      {
 		      for (int y = 0; y < Description.OutputNode.Height; y++)
