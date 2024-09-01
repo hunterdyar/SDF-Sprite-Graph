@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-namespace Zoompy.Generator.Editor.SystemGraph
+namespace Zoompy
 {
 	public class BaseNodeView : UnityEditor.Experimental.GraphView.Node
     {
@@ -19,12 +19,16 @@ namespace Zoompy.Generator.Editor.SystemGraph
         protected SDFSprite _SDFSprite;
         public SDFNode SDFNode => _sdfNode;
         protected readonly SDFNode _sdfNode;
+
+        protected SerializedObject _sdfSerializedObject;
+
         public BaseNodeView(SDFSprite sdfSprite, SDFNode node)
         {
             _sdfNode = node;
             _SDFSprite = sdfSprite;
             guid = GUID.Generate().ToString();
             this.viewDataKey = guid;
+            _sdfSerializedObject = new SerializedObject(sdfSprite);
             Init();
         }
 
@@ -64,6 +68,7 @@ namespace Zoompy.Generator.Editor.SystemGraph
             //node.position = newPos.position;
         }
 
+        
         public virtual void PreSaveDataPopulate()
         {
             var pos = GetPosition();
@@ -90,5 +95,16 @@ namespace Zoompy.Generator.Editor.SystemGraph
         {
             
         }
+
+        public static BaseNodeView GetViewForNode(SDFSprite systemParent, SDFNode node)
+        {
+            return node switch
+            {
+                Circle => new CircleNodeView(systemParent, node),
+                Translate => new TranslateNodeView(systemParent, node),
+                _ => new BaseNodeView(systemParent, node)
+            };
+        }
+
     }
 }

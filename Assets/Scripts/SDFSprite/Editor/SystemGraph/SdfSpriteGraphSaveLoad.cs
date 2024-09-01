@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEditor.Rendering;
 
-namespace Zoompy.Generator.Editor.SystemGraph
+namespace Zoompy
 {
 	public class SdfSpriteGraphSaveLoad
 	{

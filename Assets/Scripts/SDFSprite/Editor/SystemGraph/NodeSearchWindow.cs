@@ -7,7 +7,6 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Zoompy;
-using Zoompy.Generator.Editor.SystemGraph;
 
 public class NodeSearchWindow : ScriptableObject, ISearchWindowProvider
 {
@@ -27,10 +26,17 @@ public class NodeSearchWindow : ScriptableObject, ISearchWindowProvider
 			new SearchTreeGroupEntry(new GUIContent("Nodes"), 0),
 		};
 		
+		//todo: generate these at least?
 		tree.Add(new SearchTreeEntry(new GUIContent("Circle"))
 		{
 			level = 1,
 			userData = new Circle(),
+		});
+		
+		tree.Add(new SearchTreeEntry(new GUIContent("Translate"))
+		{
+			level = 1,
+			userData = new Zoompy.Translate(),
 		});
 		
 

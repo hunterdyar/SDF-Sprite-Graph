@@ -4,7 +4,7 @@ using UnityEditor.Experimental.GraphView;
 using UnityEditor.UIElements;
 using UnityEngine.UIElements;
 
-namespace Zoompy.Generator.Editor.SystemGraph
+namespace Zoompy
 {
 	public class OutputNodeView : BaseNodeView
 	{

@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UIElements;
 
-namespace Zoompy.Generator.Editor.SystemGraph
+namespace Zoompy
 {
 	public class SdfSpriteGraphView : GraphView
 	{
@@ -82,7 +82,7 @@ namespace Zoompy.Generator.Editor.SystemGraph
 	        
 	        foreach (var sNode in _systemParent.Description.Nodes)
 	        {
-		        var node = RecreateSystemNodeView(sNode);
+		        var node = BaseNodeView.GetViewForNode(_systemParent,sNode);
 		        AddElement(node);
 	        }
 
@@ -156,37 +156,11 @@ namespace Zoompy.Generator.Editor.SystemGraph
 	        
 	        //need the node in the array in order to draw it's property, because we are using index.
 			_editor.Save();
-	        BaseNodeView nv;
-	        if (node is Circle)
-	        {
-		        //get index?
-		        nv = new CircleNodeView(_systemParent,node);
-	        }
-	        else
-	        { 
-		        nv = new BaseNodeView(_systemParent, node);
-	        }
+	        BaseNodeView nv = BaseNodeView.GetViewForNode(_systemParent,node);
 
 	        // This happens when we save.
 	       // ComponentGenerator.InnerSystem.Nodes.Add(systemNode);
 	        return nv;
         }
-
-        public BaseNodeView RecreateSystemNodeView(SDFNode node)
-        {
-	        if (node is OutputNode)
-	        {
-		        return null;
-	        }
-
-	        if (node is Circle)
-	        {
-		        return new CircleNodeView(_systemParent, node);
-	        }
-	        //if node.type = ...
-	        //return appropriate type.
-	        var n = new BaseNodeView(SDFSprite, node);
-	        return n;
-        }  
 	}
 }

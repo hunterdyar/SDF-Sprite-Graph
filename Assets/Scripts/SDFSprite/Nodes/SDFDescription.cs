@@ -18,13 +18,19 @@ namespace Zoompy
 		[SerializeReference]
 		public SDFNode[] Nodes;
 		public Connection[] Connections;
-		
+		private Dictionary<string, List<SDFNode>> _nodes = new Dictionary<string, List<SDFNode>>();
 		public List<SDFNode> GetConnectedNodeInputs(SDFNode node)
 		{
 			//can probably optimize linq query a lot
 			//todo: cache! this happens for every pixel.
+			if (_nodes.ContainsKey(node.guid))
+			{
+				return _nodes[node.guid];
+			}
 			var to = Connections.Where(x => x.ToNode == node.guid).Select(x => x.FromNode).ToList();
-			return Nodes.Where(x => to.Contains(x.guid)).ToList();
+			var n = Nodes.Where(x => to.Contains(x.guid)).ToList();
+			_nodes.Add(node.guid, n);
+			return n;
 		}
 
 		public SDFNode GetNode(string guid)
@@ -36,22 +42,17 @@ namespace Zoompy
 		{
 			//get the value
 			var from = GetConnectedNodeInputs(node);
-
-			foreach (var sdfNode in from)
-			{
-				//if it is a primitive, it has no inputs.
-				if (sdfNode is IPrimitive primitive)
-				{
-					//todo: there is no default merge
-					return primitive.Calculate(x, y);
-				}
-				
-				//if it is a transformation, it we first get the value of it's inputs, then transform them.
-				//if it is a combination, we get the value of it's inputs and apply the appropriate operation.
-			}
 			
+			SDFDescription d = this;
+			
+			//default behaviour, first result or min them together?
+			float f = Mathf.Infinity;
+			for (var i = 0; i < from.Count; i++)
+			{
+				f = Mathf.Min(from[i].Calculate(x, y, ref d), f);
+			}
 
-			return 0;
+			return f;
 		}
 
 		public float GetValue(int x, int y)

@@ -5,7 +5,7 @@ using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace Zoompy.Generator.Editor.SystemGraph
+namespace Zoompy
 {
 	public class SdfSpriteGraphEditor : EditorWindow
 	{

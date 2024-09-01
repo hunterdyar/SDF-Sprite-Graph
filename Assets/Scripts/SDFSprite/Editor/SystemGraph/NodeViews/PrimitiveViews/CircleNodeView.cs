@@ -4,16 +4,13 @@ using UnityEditor.Experimental.GraphView;
 using UnityEditor.UIElements;
 using UnityEngine.UIElements;
 
-namespace Zoompy.Generator.Editor.SystemGraph
+namespace Zoompy
 {
 	public class CircleNodeView : BaseNodeView
 	{
-		private SerializedObject _sdfSerializedObject;//todo: move to base
-		
 		private FloatField _radius;
 		public CircleNodeView(SDFSprite sdfSprite, SDFNode node) : base(sdfSprite, node)
 		{
-			_sdfSerializedObject = new SerializedObject(_SDFSprite);
 		}
 
 		protected override void GenerateSelf()

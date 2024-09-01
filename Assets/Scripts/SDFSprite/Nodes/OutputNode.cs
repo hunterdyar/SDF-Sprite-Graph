@@ -8,6 +8,8 @@ namespace Zoompy
 	public class OutputNode : SDFNode
 	{ 
 		public override string Name => "Output";
+	
+
 		public Color BackgroundColor = new Color(0f,0f,0f,0f);
 		public Color ForegroundColor = Color.white;
 		public int Width = 64;
@@ -26,5 +28,11 @@ namespace Zoompy
 
 			return (x, y);
 		}
+
+		public override float Calculate(int x, int y, ref SDFDescription system)
+		{
+			return system.GetValueIntoNode(x,y,this);
+		}
+		
 	}
 }
