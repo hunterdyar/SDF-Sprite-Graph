@@ -74,12 +74,17 @@ namespace Zoompy
 	        var outputNode = new OutputNodeView(_systemParent, _systemParent.Description.OutputNode);
 	        AddElement(outputNode);
 	        
-	        //
+	        //safety catch on first init. does "preSaveDataPopulate" handle this?
 	        if (_systemParent.Description == null)
 	        {
 		        _systemParent.Description = new SDFDescription();
 	        }
-	        
+			
+	        if (_systemParent.Description.Nodes == null)
+	        {
+		        _systemParent.Description.Nodes = Array.Empty<SDFNode>();
+	        }
+	        //
 	        foreach (var sNode in _systemParent.Description.Nodes)
 	        {
 		        var node = BaseNodeView.GetViewForNode(_systemParent,sNode);

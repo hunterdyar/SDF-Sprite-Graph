@@ -27,8 +27,8 @@ namespace SDFSprite.Editor
 			FloatField valueField = new FloatField();
 			valueField.bindingPath = valProp.propertyPath;
 			valueField.Bind(valProp.serializedObject);
+			valueField.style.minWidth = 20;
 			container.Add(valueField);
-			
 			
 			return container;
 		}

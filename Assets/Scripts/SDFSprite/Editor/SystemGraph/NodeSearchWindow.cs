@@ -39,6 +39,22 @@ public class NodeSearchWindow : ScriptableObject, ISearchWindowProvider
 			userData = new Zoompy.Translate(),
 		});
 		
+		tree.Add(new SearchTreeEntry(new GUIContent("Union"))
+		{
+			level = 1,
+			userData = new Zoompy.SimpleMerge(){merge = Merge.Union},
+		});
+		tree.Add(new SearchTreeEntry(new GUIContent("Intersection"))
+		{
+			level = 1,
+			userData = new Zoompy.SimpleMerge() { merge = Merge.Intersection },
+		});
+		tree.Add(new SearchTreeEntry(new GUIContent("Subtraction"))
+		{
+			level = 1,
+			userData = new Zoompy.SimpleMerge() { merge = Merge.Subtraction },
+		});
+		
 
 		return tree;
 	}
