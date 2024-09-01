@@ -103,6 +103,7 @@ namespace Zoompy
                 Circle => new CircleNodeView(systemParent, node),
                 Translate => new TranslateNodeView(systemParent, node),
                 SimpleMerge => new SimpleMergeNodeView(systemParent,node),
+                Lerp => new LerpNodeView(systemParent,node),
                 _ => new BaseNodeView(systemParent, node)
             };
         }

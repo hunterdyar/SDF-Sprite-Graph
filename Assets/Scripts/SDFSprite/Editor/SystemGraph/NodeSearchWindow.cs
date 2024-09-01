@@ -54,6 +54,11 @@ public class NodeSearchWindow : ScriptableObject, ISearchWindowProvider
 			level = 1,
 			userData = new Zoompy.SimpleMerge() { merge = Merge.Subtraction },
 		});
+		tree.Add(new SearchTreeEntry(new GUIContent("Lerp"))
+		{
+			level = 1,
+			userData = new Zoompy.Lerp() {  },
+		});
 		
 
 		return tree;
