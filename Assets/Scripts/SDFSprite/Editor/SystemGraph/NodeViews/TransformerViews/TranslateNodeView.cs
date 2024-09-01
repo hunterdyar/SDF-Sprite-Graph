@@ -1,8 +1,10 @@
 ﻿using System;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Zoompy.Structures;
 
 namespace Zoompy
 {
@@ -10,6 +12,8 @@ namespace Zoompy
 	{
 		private IntegerField _xField;
 		private IntegerField _yField;
+
+		public SDFLength Length;
 
 		public TranslateNodeView(SDFSprite sdfSprite, SDFNode node) : base(sdfSprite, node)
 		{
@@ -36,7 +40,7 @@ namespace Zoompy
 			_yField = new IntegerField("Translate Y");
 			_yField.value = n.X;
 			mainContainer.Add(_yField);
-
+			
 			base.GenerateSelf();
 		}
 

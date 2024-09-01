@@ -62,6 +62,7 @@ namespace Zoompy
 			};
 			genBtn.clicked += () =>
 			{
+				//tint or display some message...
 				Save();
 				_currentComponentContainer.Generate();
 			};
@@ -73,7 +74,7 @@ namespace Zoompy
 				_systemNameLabel = new Label();
 			}
 			_toolbar.Add(_systemNameLabel);
-			
+			_toolbar.style.minHeight = new StyleLength(new Length(16, LengthUnit.Pixel));
 			//
 			rootVisualElement.Add(_toolbar); 
 		}

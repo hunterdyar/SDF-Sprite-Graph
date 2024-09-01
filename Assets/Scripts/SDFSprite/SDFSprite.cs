@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace Zoompy
 {
@@ -11,30 +14,61 @@ namespace Zoompy
       //todo: child asset. How did we do it in daily golf gen?
       private Texture2D _spriteTexture;
       private Sprite _sprite;
+
+      private Color[] _colorCache;
       
       public SDFDescription Description = new SDFDescription();
       [SerializeField] private FilterMode _filterMode = FilterMode.Point;
 
+      [SerializeField] private bool useThreads = true;
 
+      private readonly Stopwatch _getStopwatch = new Stopwatch();
       [ContextMenu("Generate")]
       public void Generate()
       {
+	      _getStopwatch.Restart();
 	      //create empty if needed
 	      SaveTexture2D();
-	      Description.ClearCache();
-	      for (int x = 0; x < Description.OutputNode.Width; x++)
+	      Description.BuildCache();
+
+	      if (!useThreads)
 	      {
-		      for (int y = 0; y < Description.OutputNode.Height; y++)
-		      {
-			      var n = Description.GetValue(x, y);
-			      _spriteTexture.SetPixel(x, y, n < 0? Description.OutputNode.ForegroundColor : Description.OutputNode.BackgroundColor);
-		      }
+		       for (int x = 0; x < Description.OutputNode.Width; x++)
+		       {
+			        for (int y = 0; y < Description.OutputNode.Height; y++)
+			        {
+			         var n = Description.GetValue(x, y);
+			         _spriteTexture.SetPixel(x, y,
+			          n < 0 ? Description.OutputNode.ForegroundColor : Description.OutputNode.BackgroundColor);
+			        }
+		       }
 	      }
+	      else
+	      {
+		      int size = Description.OutputNode.Width * Description.OutputNode.Height;
+		      if (_colorCache == null || _colorCache.Length != size)
+		      {
+			      _colorCache = new Color[size];
+		      }
+
+		      Parallel.For(0, size, i =>
+		      {
+			      int x = i % Description.OutputNode.Width;
+			      int y = i / Description.OutputNode.Width;
+			      var n = Description.GetValue(x, y);
+			      _colorCache[i] =
+				      n < 0 ? Description.OutputNode.ForegroundColor : Description.OutputNode.BackgroundColor;
+		      });
+
+		      _spriteTexture.SetPixels(_colorCache);
+	      }
+
 	      _spriteTexture.Apply();
-	      
 	      
 	      //okay now actually save
 	      SaveTexture2D();
+	      _getStopwatch.Stop();
+	      Debug.Log($"{name} sprite generated in {_getStopwatch.ElapsedMilliseconds} ms");
       }
       public void SaveTexture2D()
       {
@@ -65,6 +99,7 @@ namespace Zoompy
                 _spriteTexture.height != Description.OutputNode.Height)
             {
                _spriteTexture.Reinitialize(Description.OutputNode.Width, Description.OutputNode.Height);
+               DestroyImmediate(_sprite);
                _sprite = Sprite.Create(_spriteTexture, new Rect(0, 0, _spriteTexture.width, _spriteTexture.height),
 	               Vector2.zero);
                EditorUtility.SetDirty(_sprite);
@@ -74,14 +109,15 @@ namespace Zoompy
 #if UNITY_EDITOR
                AssetDatabase.SaveAssets();
 #endif  
-               
             }
             
 #if UNITY_EDITOR
             EditorUtility.SetDirty(_spriteTexture);
             EditorUtility.SetDirty(_sprite);
             AssetDatabase.SaveAssetIfDirty(AssetDatabase.GUIDFromAssetPath(AssetDatabase.GetAssetPath(_spriteTexture)));
+            EditorGUIUtility.SetIconForObject(this, _spriteTexture);
 #endif
+	      
       }
    }
 }
